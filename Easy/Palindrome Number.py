@@ -112,14 +112,20 @@ class Solution1:
 
 
 # Much shorter solution I found after looking at other solutions, that doesn't convert to a string
-"""In this solution the number is being reconstructed in reverse order. We start with one variable at """
+"""In this solution the number is being reconstructed in reverse order. We start with an initial variable at 0. We then get the
+remainder of dividing our input integer by ten, which would give us the ones place to start. We then multiply or initial
+variable by 10, and add the ones to it. Then we use integer division to divide our original input by 10, which effectlively
+truncates the number by one digit on the right. Now our new initialized variable is equal to the last digit of our original
+input, while the input variable is now the same integer minus the final digit. Rinse and repeat.
+
+Best visualized by stepping through an example with a debugger."""
 def is_palindrome1(x):
     if x < 0:
         return False
     else:
         reverse = 0
         while x > 0:
-            reverse = reverse * 10 + x % 10
+            reverse = x % 10 + reverse * 10
             x = x // 10
 
     return reverse == x

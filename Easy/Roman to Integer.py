@@ -46,7 +46,7 @@ It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 
 """My first solution is to list the possible roman numerals in a dictionary mapping the strings to their integer values,
 from largest to smallest. Then we check which one of these values the string starts with (the sorting from largest to 
-smallest ensures that we would catch 'CM' and add 900 rather than adding 100 for C and 1000 for M), add the integer
+smallest ensures that we would catch 'CM' and add 900 rather than adding 100 for C and then 1000 for M), add the integer
 value of the roman numeral string to our result variable, chop that string off of the start of our initial roman numeral
 input, and start over. Repeat this process until the initial roman numeral string is empty, and return the result."""
 

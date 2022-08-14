@@ -52,7 +52,7 @@ def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optio
     solution = ListNode()
     solution_reference = solution
 
-    if not (list1 or list2):
+    if not (list1 or list2):  # Edge case where both list heads are empty. Could also have returned list2.
         return list1
 
     while list1 and list2:
@@ -74,3 +74,29 @@ def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optio
         solution_reference.next = list2.next
 
     return solution
+
+
+# After looking at other solutions.
+"""My solution was pretty close to the optimal solution, it could just be streamlined. That's what's below."""
+
+
+def streamlined(list1, list2):
+    solution = ListNode()
+    solution_reference = solution
+
+    while list1 and list2:
+        if list1.val < list2.val:
+            solution_reference.next = list1
+            list1 = list1.next
+        else:
+            solution_reference.next = list2
+            list2 = list2.next
+
+        solution_reference = solution_reference.next
+
+    if list1:
+        solution_reference.next = list1
+    elif list2:
+        solution_reference.next = list2
+
+    return solution.next  # Since we didn't reassign the .val attribute, .next is actually where the solution 'head' is.

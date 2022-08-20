@@ -34,6 +34,7 @@ Constraints:
 1 <= digits.length <= 100
 0 <= digits[i] <= 9
 digits does not contain any leading 0's."""
+import performance_test
 
 """Fun solution where I was able to write a one-liner. We turn all of the integers in digits into strings using 
 list(map()), join the elements together using .join() with an empty string as the joiner, turn the resultant numeric
@@ -41,7 +42,7 @@ string into an integer with int() and add 1, then turn each digit of the numeric
 turn it into a list with list()"""
 
 
-def plusOne(digits):
+def one_liner(digits):
     return list(map(int, str(int(''.join(list(map(str, digits)))) + 1)))
 
 
@@ -51,7 +52,7 @@ return the list, as long as the last integer isn't 9. If the last digit is 9, we
 digits into our function, add 0 to the end of the result, and that is the solution we return."""
 
 
-def plus_one_v2(digits):
+def recursion(digits):
     if digits == [9]:
         return [1, 0]
 
@@ -59,18 +60,21 @@ def plus_one_v2(digits):
         digits[-1] += 1
         return digits
     else:
-        return plus_one_v2(digits[:-1]) + [0]
+        return recursion(digits[:-1]) + [0]
 
 
-def plus_one_v3(digits):
+"""This solution implements the same general process as the solution above, but this time with memoization instead of
+recursion."""
+
+
+def memoization(digits):
     memo = {
         'digits': digits,
         'zeros': 0
     }
 
     while True:
-        if digits == [9]:
-            memo['zeros'] += 1
+        if not memo['digits']:
             return [1] + [0] * memo['zeros']
         elif memo['digits'][-1] != 9:
             memo['digits'][-1] += 1
@@ -79,4 +83,10 @@ def plus_one_v3(digits):
             memo['digits'].pop()
             memo['zeros'] += 1
 
-plus_one_v3([1, 2, 3])
+# Recursion is faster than my one-liner for small inputs, but the one liner beats recursion for larger inputs
+performance_test.performance_test(recursion, one_liner, [9] * 10)
+performance_test.performance_test(recursion, one_liner, [9] * 100)
+
+# And, unsurprisingly, memoization is reliably faster than recursion
+performance_test.performance_test(recursion, memoization, [9] * 566)
+

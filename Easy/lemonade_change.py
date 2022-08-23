@@ -87,5 +87,6 @@ def lemonade_change2(bills):
 
     return True
 
+
 # After looking
-"""Turns out there wasn't much better."""
+"""Turns out there wasn't anything much better."""

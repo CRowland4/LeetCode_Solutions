@@ -10,5 +10,3 @@ def prime_finder(upper_limit):
             print(number)
 
     return primes
-
-

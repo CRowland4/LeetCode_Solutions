@@ -67,8 +67,8 @@ def removeDuplicates(nums: List[int]) -> int:
 """This solution is much more efficient solution and has O(n) time complexity. We start with two pointers, one at the 
 first element of the list and one at the second. The general algorithm is this: if the second index is a different 
 element than the first, we increment the first pointer by one, and update that index's element to match that of the 
-second pointer. If the elements are the same, our second pointer moves on to the next element, and the first pointer is
-untouched."""
+second pointer, then increment the second pointer by one as well. If the elements are the same, our second pointer moves
+on to the next element, and the first pointer is untouched we return the index of the first pointer + 1."""
 
 
 def removeDuplicates2(nums: List[int]) -> int:
@@ -80,3 +80,20 @@ def removeDuplicates2(nums: List[int]) -> int:
 
     return unique_pointer + 1
 
+
+"""This is me coming back later and recreating the best solution from my own description of it, then editing my
+description based on the problems I had."""
+
+
+def removeDuplicates3(nums: List[int]) -> int:
+    left = 0
+    right = 1
+    while right < len(nums):
+        if nums[right] == nums[left]:
+            right += 1
+        else:
+            left += 1
+            nums[left] = nums[right]
+            right += 1
+
+    return left + 1
